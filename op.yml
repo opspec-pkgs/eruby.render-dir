@@ -16,16 +16,12 @@ outputs:
       description: result of rendering the templates
 version: 1.0.0
 run:
-  serial:
-    - container:
-        cmd: [/cmd.rb]
-        dirs:
-          /templates: $(templates)
-          /result: $(result)
-        image: { ref: 'ruby:2.6.3-alpine' }
-        files:
-          /cmd.rb:
-          /data: $(data)
-    - container:
-        cmd: [echo, '$(result/sub/non-erb.txt)']
-        image: {ref: alpine}
+  container:
+    cmd: [/cmd.rb]
+    dirs:
+      /templates: $(templates)
+      /result: $(result)
+    image: { ref: 'ruby:2.6.3-alpine' }
+    files:
+      /cmd.rb:
+      /data: $(data)

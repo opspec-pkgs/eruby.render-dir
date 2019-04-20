@@ -31,7 +31,7 @@ op:
   ref: github.com/opspec-pkgs/eruby.render-dir#1.0.0
   inputs:
     ### optional; uncomment to override default(s)
-    # data: {name: Elon}
+    # data: [object Object]
     # templates: example
   outputs:
     result:
