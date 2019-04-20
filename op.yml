@@ -1,0 +1,31 @@
+description: renders a directory of [eRuby](https://en.wikipedia.org/wiki/ERuby) templates
+name: github.com/opspec-pkgs/eruby.render-dir
+opspec: 0.1.6
+inputs:
+  data:
+    object:
+      description: data used to hydrate the templates; made available as instance variables (via @key)
+      default: { name: Elon}
+  templates:
+    dir:
+      description: eruby templates to render
+      default: example
+outputs:
+  result:
+    dir:
+      description: result of rendering the templates
+version: 1.0.0
+run:
+  serial:
+    - container:
+        cmd: [/cmd.rb]
+        dirs:
+          /templates: $(templates)
+          /result: $(result)
+        image: { ref: 'ruby:2.6.3-alpine' }
+        files:
+          /cmd.rb:
+          /data: $(data)
+    - container:
+        cmd: [echo, '$(result/sub/non-erb.txt)']
+        image: {ref: alpine}
